@@ -1,20 +1,64 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Ionicons from "@expo/vector-icons/Ionicons";
+
+import Home from "./screens/Home";
+import Profile from "./screens/Profile";
+import SettingScreen from "./screens/Setting";
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+	return (
+		<NavigationContainer>
+			<Tab.Navigator
+				screenOptions={{
+					headerShown: false,
+					tabBarActiveTintColor: "#2563EB",
+					tabBarInactiveTintColor: "#9CA3AF",
+				}}>
+				<Tab.Screen
+					name="Home"
+					component={Home}
+					options={{
+						tabBarIcon: ({ focused, color, size }) => (
+							<Ionicons
+								name={focused ? "home" : "home-outline"}
+								size={size}
+								color={color}
+							/>
+						),
+					}}
+				/>
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+				<Tab.Screen
+					name="Profile"
+					component={Profile}
+					options={{
+						tabBarIcon: ({ focused, color, size }) => (
+							<Ionicons
+								name={focused ? "person" : "person-outline"}
+								size={size}
+								color={color}
+							/>
+						),
+					}}
+				/>
+
+				<Tab.Screen
+					name="Setting"
+					component={SettingScreen}
+					options={{
+						tabBarIcon: ({ focused, color, size }) => (
+							<Ionicons
+								name={focused ? "settings" : "settings-outline"}
+								size={size}
+								color={color}
+							/>
+						),
+					}}
+				/>
+			</Tab.Navigator>
+		</NavigationContainer>
+	);
+}
